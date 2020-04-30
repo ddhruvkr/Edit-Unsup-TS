@@ -15,7 +15,7 @@ def sample(complex_sentences, simple_sentences, input_lang, tag_lang, dep_lang, 
     p_scorel = 0
     fkgl_scorel = 0
     fre_scorel = 0
-    stats = {'ls':0, 'dl':0, 'las':0, 'rl':0, 'pa': 0}
+    stats = {'ls':0, 'dl':0, 'las':0, 'rl':0}
     if config['lm_type'] == 'standard':
         lm_forward.load_state_dict(torch.load(config['lm_name']+'.pt'))
     elif config['lm_type'] == 'structural':
@@ -157,7 +157,7 @@ def mcmc(input_sent, reference, input_lang, tag_lang, dep_lang, lm_forward, lm_b
     #print(given_complex_sentence)
     #print(reference)
     print("Input complex sentence")
-    print(input_sent)
+    print(given_complex_sentence)
     print("Reference sentence")
     print(reference)
     print("Simplified sentence")
