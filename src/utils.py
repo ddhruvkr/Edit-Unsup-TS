@@ -713,10 +713,7 @@ def calculateLoss(decoder, elmo_tensor, output_tensor, tag_tensor, dep_tensor, l
 
 def get_sentence_probability(lm_forward, elmo_tensor, input_sent_tensor, tag_tensor, dep_tensor, input_lang, input_sent, unigram_prob):
 
-	if config['lm_type'] == 'structural':
-		prob, _ = calculateLoss(lm_forward, elmo_tensor, input_sent_tensor, tag_tensor, dep_tensor, input_lang, False)
-	elif config['lm_type'] == 'standard':
-		prob, _ = calculateLossWord(lm_forward, input_sent_tensor, input_lang, False)
+	prob, _ = calculateLoss(lm_forward, elmo_tensor, input_sent_tensor, tag_tensor, dep_tensor, input_lang, False)
 	prob, worst_three = calculateProbabilitySentence(prob, input_sent_tensor)
 	if config['SLOR']:
 		slor = prob - calcluate_unigram_probability(input_sent, unigram_prob, input_lang)
