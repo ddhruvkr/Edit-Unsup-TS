@@ -26,7 +26,7 @@ Make sure to calculate all metrics as CORPUS level and not SENTENCE level.
 
 Use the calculate_scores.py file to calculate the CORPUS level BLEU scores for both the datasets.
 
-The script for calculating CORPUS level SARI scores can be found in the JOSHUA package [[here]](https://github.com/cocoxu/simplification/#the-text-simplificaiton-system)
+The script for calculating CORPUS level SARI scores can be found in the JOSHUA package [[here]](https://github.com/XingxingZhang/dress/tree/master/experiments/evaluation/SARI)
 
 The scripts for CORPUS level FKGL and FRE can be found in the folder readability_py2. It is important to run this in Python 2.7 environment to get the exact scores of those reported in all the previous work.
 
