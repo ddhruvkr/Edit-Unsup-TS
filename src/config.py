@@ -7,7 +7,6 @@ model_config = {
     'set': 'test',
     'lm_name': 'Newsela/structured_lm_forward_300_150_0_4', #wikilarge -> Wikilarge/structured_lm_forward_300_150_0_4_freq5
     'use_structural_as_standard': False,
-    'lm_type': 'structural', # structural or standard
     'lm_backward': False,
     'embedding_dim': 300,
     'tag_dim': 150,
@@ -43,6 +42,5 @@ model_config = {
     'named_entity_score_power': 1.0,
     'len_power': 1.0, #Wikilarge=0.25
     'fre_power': 1.0,
-    'replace': 'word_similarity',
     'operation': 'sample' # or sample or train_lm,
 }
