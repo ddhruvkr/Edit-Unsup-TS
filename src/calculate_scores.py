@@ -9,10 +9,12 @@ import numpy as np
 from io import open
 import unicodedata
 # scp -r mcmc_sampling/readability_py2 d35kumar2@lg-research-2:~/Github/Text_Simplification/mcmc_sampling/
-make_file = False
-dataset = 'Newsela' #Wikilarge, Newsela
-m = 'Newsela/output/final_try.txt'
-n = 'Newsela/simple/final_try_simple_hs.txt'
+make_file = True # this should be True, if you want to create a new file from the file created by tree_edits_beam.py. The new file will have sentences in each line (which is the format in which the output is given for computing metircs)
+# and should be false, if you want to calculate scores for the file with sentences
+
+dataset = 'Wikilarge' #Wikilarge, Newsela
+m = 'Wikilarge/output/simplifications_Wikilarge.txt'
+n = 'Wikilarge/simple/simplifications_Wikilarge_simple_hs.txt'
 
 print("All evalulations should be done on corpus level")
 #n= 'Wikilarge/sbmt.txt'
