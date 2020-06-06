@@ -27,7 +27,7 @@ import nltk
 from nltk.corpus import wordnet as wn
 import pyinflect
 from pyinflect import getAllInflections, getInflection
-from tokenizers import SentencePieceBPETokenizer
+#from tokenizers import SentencePieceBPETokenizer
 import copy
 
 print(config)
@@ -593,6 +593,61 @@ def getLength(t):
 	#print(c)
 	return c
 
+def calculateLossWord(decoder, output_tensor, lang, p):
+	# calculate language model score for the standard language model
+    decoder.eval()
+    #print(output_tensor)
+    with torch.no_grad():
+        criterion = nn.NLLLoss(ignore_index=0)
+        decoder_hidden = decoder.initHidden(1)
+        #encoder_hidden = encoder.initHidden(1, True)
+        #output_tensor = output_tensor.unsqueeze(0)
+        #print(input_tensor)
+        c = 0
+        a = []
+        for i in output_tensor[0]:
+            if i.item() == 0:
+                a.append(0)
+            else:
+                c += 1
+                a.append(1)
+        output_tensor_len = torch.tensor([c], device=device)
+        output_tensor_mask = get_mask(output_tensor_len)
+        batch_size = 1
+        decoder_input = output_tensor.narrow(1, 0, 1)
+        #decoder_input = torch.full((batch_size, 1), SOS_token, device=device, dtype=torch.int64)
+        decoded_words = []
+        loss = 0
+        prob = []
+        #print('output_tensor len')
+        #print(output_tensor_len.item()-1)
+        for di in range(output_tensor_len.item()-1):
+            # -2 because of removing the SOS and EOS tokens
+            decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, False)
+            indices = torch.tensor([di+1], device=device)
+            #print(output_tensor)
+            target_t = torch.index_select(output_tensor, 1, indices)
+            #print(target_t)
+            #print(target_t.view(-1))
+            loss += criterion(decoder_output[0], target_t.view(-1))
+            prob.append(decoder_output[0])
+            #a = decoder_output[0]
+            '''topv, topi = decoder_output.data.topk(1)
+            if topi.item() == EOS_token:
+                decoded_words.append('<EOS>')
+                break
+            else:
+                decoded_words.append(output_lang.index2word[topi.item()])'''
+            decoder_input = target_t
+            #decoder_input = topi.squeeze(0).detach()
+        #print(loss)
+        #print(math.exp(loss))
+        b = torch.Tensor(1,output_tensor_len.item()-1,lang.n_words).to(device)
+        return torch.cat(prob, out=b), loss.item()/(output_tensor_len.item()-1)
+        # -2 for SOS and EOS token
+        #return decoded_words, math.exp(loss)/max_length
+
+
 def calculateLoss(decoder, elmo_tensor, output_tensor, tag_tensor, dep_tensor, lang, p):
     decoder.eval()
     #print('inside calculate Loss')
@@ -657,7 +712,11 @@ def calculateLoss(decoder, elmo_tensor, output_tensor, tag_tensor, dep_tensor, l
     #return decoded_words, math.exp(loss)/max_length
 
 def get_sentence_probability(lm_forward, elmo_tensor, input_sent_tensor, tag_tensor, dep_tensor, input_lang, input_sent, unigram_prob):
-	prob, _ = calculateLoss(lm_forward, elmo_tensor, input_sent_tensor, tag_tensor, dep_tensor, input_lang, False)
+
+	if config['lm_type'] == 'structural':
+		prob, _ = calculateLoss(lm_forward, elmo_tensor, input_sent_tensor, tag_tensor, dep_tensor, input_lang, False)
+	elif config['lm_type'] == 'standard':
+		prob, _ = calculateLossWord(lm_forward, input_sent_tensor, input_lang, False)
 	prob, worst_three = calculateProbabilitySentence(prob, input_sent_tensor)
 	if config['SLOR']:
 		slor = prob - calcluate_unigram_probability(input_sent, unigram_prob, input_lang)

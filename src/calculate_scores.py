@@ -11,8 +11,8 @@ import unicodedata
 # scp -r mcmc_sampling/readability_py2 d35kumar2@lg-research-2:~/Github/Text_Simplification/mcmc_sampling/
 make_file = False
 dataset = 'Newsela' #Wikilarge, Newsela
-m = 'Newsela/output/simplifications_Newsela.txt'
-n = 'Newsela/simple/simplifications_Newsela_simple_hs.txt'
+m = 'Newsela/output/final_try.txt'
+n = 'Newsela/simple/final_try_simple_hs.txt'
 
 print("All evalulations should be done on corpus level")
 #n= 'Wikilarge/sbmt.txt'
@@ -41,7 +41,7 @@ if make_file:
 		# 1077, 1076, #359, 358
 		while k < val:
 			if k != val-1:
-				print(i)
+				#print(i)
 				file.write(Mine[i] + '\n')
 			else:
 				file.write(Mine[i])
