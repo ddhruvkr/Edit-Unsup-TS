@@ -8,7 +8,7 @@ You need to run the main.py file.
 
 The different configurations in the code can be controlled by the config.py file.
 
-To initially train the language model, set the "operation" parameter in the config file to "train_lm". The parameter "lm_type" controls the type of language model to train. The value "structural" will train a syntax aware language model, whereas the value "standard" will train the usual language model.
+To initially train the language model, set the "operation" parameter in the config file to "train_lm". This will train a syntax-aware language model. If you wish to use a standard language model, set the parameter "use_structural_as_standard" as True.
 
 To run the simplification algorithm, set the parameter "operation" to "sample".
 
