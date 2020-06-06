@@ -19,7 +19,7 @@ The language models should be put in src/Newsela and src/Wikilarge respectively.
 
 The POS and DEP tags for the sentences in Newsela and Wikilarge are precomputed and can be found in the folders src/Newsela and src/Wikilarge folders as well. If these files are not present, the code will generate these files.
 
-You will also need to have a CoreNLP Server running on port 9000.
+You will also need to have a CoreNLP Server running on port 9000. You can download the package from [[here]](https://stanfordnlp.github.io/CoreNLP/download.html)
 
 
 ## Metric calculation
