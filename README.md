@@ -15,6 +15,10 @@ To run the simplification algorithm, set the parameter "operation" to "sample".
 The syntax-aware language models for the Newsela and Wikilarge datasets, the trained word2vec model for Wikilarge (used in lexical simplification) and the simplified outputs from our models for the Wikilarge dataset can be found [[here]](https://drive.google.com/drive/folders/1We3YeS6O9iReXvcxG4XKx0pMO6bIggUR?usp=sharing)
 For the simplified outputs for the Newsela dataset, please reach out to me at ddhruvkr@gmail.com. This is because the Newsela dataset is not publically available and only available via a contract with Newsela.
 
+The language models should be put in src/Newsela and src/Wikilarge respectively. The trained word2vec model on the Wikilarge dataset, should be put in src/Wikilarge/Word2vec folder.
+
+The POS and DEP tags for the sentences in Newsela and Wikilarge are precomputed and can be found in the folders src/Newsela and src/Wikilarge folders as well. If these files are not present, the code will generate these files.
+
 
 ## Metric calculation
 
