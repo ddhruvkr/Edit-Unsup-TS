@@ -1,5 +1,22 @@
 # Edit-Unsup-TS
 
+Code for our paper "[Iterative Edit-Based Unsupervised Sentence Simplification](https://www.aclweb.org/anthology/2020.acl-main.707.pdf)" accepted at ACL 2020.
+
+Please cite this paper if you use our code or system output.
+
+```
+@inproceedings{kumar-etal-2020-iterative,
+    title = "Iterative Edit-Based Unsupervised Sentence Simplification",
+    author = "Kumar, Dhruv  and
+      Mou, Lili  and
+      Golab, Lukasz  and
+      Vechtomova, Olga",
+    booktitle = "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
+    publisher = "Association for Computational Linguistics",
+    pages = "7918--7928",
+}
+```
+
 The code is written in Python 3.7.6 and Pytorch 1.4.0.
 
 # Training and running the model
